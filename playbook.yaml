@@ -1,5 +1,7 @@
 ---
 - hosts: all
+  vars:
+    ansible_remote_tmp: /tmp
   become: yes
   roles:
     - base

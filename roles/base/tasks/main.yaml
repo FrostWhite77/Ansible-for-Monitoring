@@ -1,12 +1,21 @@
 ---
-- name: Install basic packages
-  dnf:
-    name: "{{ item }}"
+- name: whoami
+  shell: 'whoami'
+  register: command_output
+
+- debug:
+    var: command_output.stdout_lines
+
+- name: Install epel-release
+  ansible.builtin.dnf:
+    name: epel-release
     state: present
-  with_items:
-    - python3
-    - python3-pip
-    - git
-    - wget
-    - vim
-    - htop
+
+- name: Update dnf
+  dnf:
+    update_cache: yes
+
+- name: Install htop
+  ansible.builtin.dnf:
+    name: htop
+    state: present
